@@ -14,7 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -24,5 +24,5 @@ urlpatterns = [
     path('', views.index, name = 'index'),
     # 显示所有主题
     path('topics/', views.topics, name = 'topics'),
-    path('topics/(?P<topic_id>\\d+)/', views.topic, name = 'topic'),
+    re_path(r'^topics/(?P<topic_id>\d+)/$', views.topic, name = 'topic'),
 ]
