@@ -25,8 +25,8 @@ def topics(request):
 def topic(request, topic_id):
     """显示单个主题及其所有的条目"""
     # 使用get()来获取指定的主题
-    topic = Topic.objects.get(id = topic_id)
+    topic = Topic.objects.get(id=topic_id)
     # 获取与该主题相关联的条目并将它们按照date_added排序,减号指定按照降序排列使最近条目先显示
     entries = topic.entry_set.order_by('-date_added')
-    context = {'topic': topic, 'entrise': entries}
-    return render(request, 'llogs/topics.html', context)
+    context = {'topic': topic, 'entries': entries}
+    return render(request, 'llogs/topic.html', context)
