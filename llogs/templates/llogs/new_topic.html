@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <title>添加新主题</title>
+</head>
+<body>
+{% extends "llogs/base.html" %}
+
+{% block content %}
+    <p>Add a new topic:</p>
+
+    {# 实参action告诉告诉服务器将提交的表单数据发送到哪（此处为视图函数new_topic）； #}
+    {# 实参method让浏览器以POST请求的方式提交数据 #}
+    <form action="{% url 'llogs:new_topic' %}" method="post">
+
+        {% csrf_token %}    {# 使用此模版标签防止跨站请求伪造（攻击） #}
+        {{ form.as_p }} {# 使用as_p修饰符让Django以段落格式渲染所有表单元素 #}
+        <button name="submit">add topic</button> {# 创建一个表单提交按钮 #}
+
+    </form>
+{% endblock content %}
+</body>
+</html>

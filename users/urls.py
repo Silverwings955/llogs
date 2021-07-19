@@ -15,22 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, re_path
+from django.contrib.auth.views import LoginView
 
 from . import views
 
-app_name = 'llogs'
+app_name = 'users'
 urlpatterns = [
-    # 主页
-    path('', views.index, name = 'index'),
-    # 显示所有主题
-    path('topics/', views.topics, name = 'topics'),
+    # 登录页面
+    re_path(r'^login/$', LoginView.as_view(template_name='users/login.html'),
+            name='login'),
+    re_path(r'^logout/$', views.logout_view, name='logout'),
 
-    # (?P<topic_id>\d+)捕获一个数字值，并将其存储在变量topic_id中
-    re_path(r'^topics/(?P<topic_id>\d+)/$', views.topic, name = 'topic'),
-
-    re_path(r'^new_topic/$', views.new_topic, name = 'new_topic'),
-    re_path(r'^new_entry/(?P<topic_id>\d+)/$', views.new_entry,
-            name = 'new_entry'),
-    re_path(r'^edit_entry/(?P<entry_id>\d+)/$', views.edit_entry,
-            name = 'edit_entry')
 ]
